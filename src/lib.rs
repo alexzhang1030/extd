@@ -6,12 +6,8 @@ pub struct ExtractResult {
 }
 
 #[tokio::main]
-pub async fn extract_td() -> Result<ExtractResult, Box<dyn std::error::Error>> {
-    let body = reqwest::get("https://baidu.com")
-        .await?
-        .text()
-        .await?
-        .replace("\"", "'");
+pub async fn extract_td(link: &str) -> Result<ExtractResult, Box<dyn std::error::Error>> {
+    let body = reqwest::get(link).await?.text().await?.replace("\"", "'");
     let result = extract_title_and_desc(body);
     Ok(result)
 }

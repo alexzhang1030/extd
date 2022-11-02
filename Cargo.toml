@@ -2,6 +2,10 @@
 name = "extd"
 version = "0.1.0"
 edition = "2021"
+license = "MIT"
+keywords = ["extact", "fetch"]
+description = "Fetch and extract HTML's title and description by given link."
+repository = "https://github.com/alexzhang1030/extd/"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
