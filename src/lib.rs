@@ -1,8 +1,9 @@
 use regex::Regex;
 
+#[derive(Debug)]
 pub struct ExtractResult {
-    title: String,
-    desc: String,
+    pub title: String,
+    pub desc: String,
 }
 
 #[tokio::main]
