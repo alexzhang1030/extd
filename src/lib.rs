@@ -15,8 +15,8 @@ pub async fn extract_td(link: &str) -> Result<ExtractResult, Box<dyn std::error:
 
 fn extract_title_and_desc(input: String) -> ExtractResult {
     let input_str = input.as_str();
-    let desc_re = Regex::new(r"<meta.?name='description'.?content='(.*?)'.*?>").unwrap();
-    let title_re = Regex::new("<title>(.*?)</title>").unwrap();
+    let desc_re = Regex::new(r"<meta.?name='description'.?content='([\s\S]*?)'.*?>").unwrap();
+    let title_re = Regex::new(r"<title>([\s\S]*?)</title>").unwrap();
     ExtractResult {
         title: String::from(extract(input_str, title_re)),
         desc: String::from(extract(input_str, desc_re)),
@@ -26,7 +26,7 @@ fn extract_title_and_desc(input: String) -> ExtractResult {
 fn extract(input: &str, re: Regex) -> &str {
     let caps = re.captures(input);
     match caps {
-        Some(caps) => caps.get(1).map_or("", |m| m.as_str()),
+        Some(caps) => caps.get(1).map_or("", |m| m.as_str()).trim(),
         _ => "",
     }
 }
@@ -40,5 +40,14 @@ mod tests {
         let result = extract_title_and_desc(String::from(""));
         assert_eq!(result.title, String::from(""));
         assert_eq!(result.desc, String::from(""));
+    }
+
+    #[test]
+    fn test_extd() {
+        let result = extract_td("https://www.rust-lang.org/");
+        match result {
+            Ok(r) => println!("{:?}", r),
+            _ => (),
+        }
     }
 }
