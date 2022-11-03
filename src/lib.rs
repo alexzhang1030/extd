@@ -1,9 +1,22 @@
 use regex::Regex;
+use serde::ser::{Serialize, SerializeStruct, Serializer};
 
 #[derive(Debug)]
 pub struct ExtractResult {
     pub title: String,
     pub desc: String,
+}
+
+impl Serialize for ExtractResult {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        let mut res = serializer.serialize_struct("ExtractResult", 2)?;
+        res.serialize_field("title", &self.title)?;
+        res.serialize_field("desc", &self.desc)?;
+        res.end()
+    }
 }
 
 #[tokio::main]
