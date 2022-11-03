@@ -8,7 +8,7 @@ in `Cargo.toml`:
 
 ```toml
 [dependencies]
-extd = "0.1.2"
+extd = "0.1.4"
 ```
 
 ### Example
